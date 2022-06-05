@@ -1,0 +1,22 @@
+tempdeffile={"LIBRARY
+EXPORTS
+"}
+notesel templist4cnv
+noteload "1.txt"
+repeat notemax
+noteget templist4cnvslc,cnt
+repeat:if strmid(templist4cnvslc,0,1)=" "{templist4cnvslc=strmid(templist4cnvslc,1,strlen(templist4cnvslc))}else{break}:loop
+templist4cnvslcspc=instr(templist4cnvslc,0," ")
+templist4cnvslc2=strmid(templist4cnvslc,templist4cnvslcspc,strlen(templist4cnvslc))+" "
+repeat:if strmid(templist4cnvslc2,0,1)=" "{templist4cnvslc2=strmid(templist4cnvslc2,1,strlen(templist4cnvslc2))}else{break}:loop
+templist4cnvslc2spc=instr(templist4cnvslc2,0," ")
+if strmid(templist4cnvslc2,0,1)!="_"{
+tempdeffile+="   "+strmid(templist4cnvslc2,0,templist4cnvslc2spc)+"\n"//+"   @"+str(cnt+1)+"\n"
+}else{
+tempdeffile+="   "+strmid(templist4cnvslc2,1,templist4cnvslc2spc)+"\n"//+"   @"+str(cnt+1)+"\n"
+}
+loop
+noteunsel
+notesel tempdeffile
+notesave "export.def"
+end
